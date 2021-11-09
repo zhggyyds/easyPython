@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>learning logs</title>
+  <style>
+    small{
+      text-align: right;
+    }
+
+    .form{
+      text-align: right;
+    }
+  
+  </style>
+
+</head>
+<body>
+{% extends "learning_logs/base.html" %}
+<!-- {% load bootstrap4 %}  -->
+{% block page_header %}
+  <h1>Topics</h1>
+{% endblock page_header %}
+
+{% block content %}
+    {% for topic in topics %}
+      <div class="card mb-3">
+          <h4 class="card-header">
+            <a class="mr-4" href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a>
+          </h4>
+          <small>
+            <a href="{% url 'learning_logs:edit_topic' topic.id %}"> Edit topic </a>
+          </small>
+      </div>
+    {% empty %}
+        <p>NO TOPICS</p>
+    {% endfor %}
+
+    <form id="button" action="{% url 'learning_logs:new_topic' %}" method='GET' class="form">
+      {% csrf_token %}
+      {% buttons %}
+          <button id="button"name="Add" class="btn btn-primary">Add a new topic</button>
+      {% endbuttons %}
+    </form>
+{% endblock content %}
+
+</body>
+
+</html>

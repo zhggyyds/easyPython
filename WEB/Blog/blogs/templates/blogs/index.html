@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hao blog</title>
+    <style>
+        .header{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    {% extends 'blogs/base.html' %}
+
+    {% block page_header %}
+        <h3 class="header">This is a blog which can help you post someting about your daily life</h3>
+    {% endblock page_header %}
+
+    {% block content %}
+    <ul>
+    {% if user.is_authenticated %}
+        {% for blog in blogs %}
+            <li>
+                <a href="{% url 'blogs:blog' blog.id %}">{{ blog }}</a>
+                <p>{{ blog.date_add | date:'M d, Y H:i'}}</p>
+                <p>{{ blog.text|linebreaks }}</p>
+                <p>poster: {{ blog.owner }}</p>
+            </li>
+        {% empty %}
+            <p>NO BLOGS</p>
+        {% endfor %}
+    {% else %}
+        <span> please 
+            <a href="{% url 'users:login' %}">Login</a>
+            first,or you cann't see any blogs.    
+        </span>
+    {% endif %}
+    </ul>
+    {% endblock content %}   
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+{% extends "learning_logs/base.html" %} 
+
+{% load bootstrap4 %}
+
+{% block page_header %}
+    <h2>Log in to your account.</h2>
+{% endblock page_header %}
+
+{% block content %} 
+
+<form method="post" action="{% url 'users:login' %}" class="form">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+
+    {% buttons %}
+      <button name="submit" class="btn btn-primary">Log in</button>
+    {% endbuttons %}
+    <!-- 
+        当使用django自带view函数，input属性必须完整！不然无法正确转换
+        类型为hidden的input标签中的value值告知django用户成功登陆后应该转向哪个页面
+        并且input内的属性缺一不可，不然会造成404 
+    -->
+    <input type="hidden" name="next" value="{% url 'learning_logs:index' %}">
+</form>
+
+{% endblock content %}

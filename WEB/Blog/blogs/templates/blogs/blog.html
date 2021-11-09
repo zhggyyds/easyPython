@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hao blog</title>
+</head>
+<body>
+    {% extends 'blogs/base.html' %}
+
+    {% block page_header %}
+        <div>
+            <h3>{{ blog.title }}</h3>
+            <span><a href="{% url 'blogs:edit_blog' blog.id %}">- edit</a></span>
+        </div>
+    {% endblock page_header %}
+
+    {% block content %}
+        <p>{{ blog.date_add | date:'M d, Y H:i'}}</p>
+        <p>{{ blog.text|linebreaks }}</p>
+    {% endblock content %}
+</body>
+</html>

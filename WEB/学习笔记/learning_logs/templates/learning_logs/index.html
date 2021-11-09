@@ -1,0 +1,35 @@
+{% extends "learning_logs/base.html" %} 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    {% block content %}
+    <script>
+        alert("Welcome to my fisrt Website");
+    </script>
+    {% endblock content%}
+</head>
+
+<body>
+    {% block page_header %}
+    <!-- Block用于放置子模板特有的内容 -->
+
+    <div class="jumbotron">
+        <h1 class="dispaly-3"> Track your learning</h1>
+        <p class="lead">Make your own Learning Log, and keep a list of the
+            topics you're learning about. Whenever you learn something new
+            about a topic, make an entry summarizing what you've learned.
+        </p>
+        <a class="btn btn-lg btn-primary" href="{% url 'users:register' %}" role="button">
+            Register &raquo;
+        </a>
+    </div>
+
+    {% endblock page_header %}
+</body>
+</html>

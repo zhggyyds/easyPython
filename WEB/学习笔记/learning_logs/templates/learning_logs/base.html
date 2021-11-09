@@ -1,0 +1,76 @@
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Learning Log</title>
+
+    {% bootstrap_css %} <!-- 让django包含所有的Bootstrap样式文件，没写将不会展示为期望的效果 -->
+    {% bootstrap_javascript jquery='full' %}
+
+</head>
+
+<body>
+    <!-- 
+    父模板
+    href后的内容是一小段生成Url的代码，这个代码和learning_logs的url文件中名为index的url模式匹配，进行一系列的跳转
+    -->
+    <nav class="navbar navbar-expand-md navbar-light bg-light mb-4 border">
+        <a class="navbar-brand" href="{% url 'learning_logs:index' %}">learning log</a>
+        
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+        data-target="#navbarCollapse" aria-controls="navbarCollapse"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon">
+        <!-- 生成一个再浏览器变小时可展开导航栏的按钮 -->
+        </span>
+        </button>
+
+        <!-- 被折叠的导航栏起始位置 -->
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item ">
+                    <a class="nav-link" href="{% url 'learning_logs:topics' %}">Topics</a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav ml-auto">
+                {% if user.is_authenticated %} 
+                <li class="nav-item ">
+                    <span class="navbar-text">Hello {{user.username}}.</span>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="{% url 'users:logout' %}">log out</a>
+                </li>
+                {% else %}
+                <li class="nav-item ">
+                    <a class="nav-link" href="{% url 'users:login' %}">Log in</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="{% url 'users:register' %}">Register</a> 
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <main role="main" class="container">
+        <div class="pb-2 mb-2 border-bottom">
+            {% block page_header %}
+            <!-- 此处用作在子模板指定标题 -->
+            {% endblock page_header %}
+        </div>
+
+        <div>
+            {% block content %}
+            <!-- 此处是给后续子模板编写补充使用 -->
+            {% endblock content%}
+        </div>
+    </main>
+
+</body>
+
+</html>
